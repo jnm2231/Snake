@@ -16,6 +16,7 @@ namespace Snake
         private ConsoleColor ColorLetra { get; set; }
         public Point LimiteSuperior { get; set; }
         public Point LimiteInferior { get; set; }
+        public int Area { get; set; }
 
 
         public Ventana(string titulo, int ancho, int alto, ConsoleColor colorFondo, ConsoleColor colorLetra, Point limiteSuperior, Point limiteInferior)
@@ -27,6 +28,7 @@ namespace Snake
             ColorLetra = colorLetra;
             LimiteSuperior = limiteSuperior;
             LimiteInferior = limiteInferior;
+            Area = ((limiteInferior.X - limiteSuperior.X)-1) * ((limiteInferior.Y - limiteSuperior.Y)-1);
             Init();
         }
 

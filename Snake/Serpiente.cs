@@ -21,7 +21,7 @@ namespace Snake
         private ConsoleColor ColorCuerpo { get; set; }
         private Ventana VentanaC { get; set; }
         public List<Point> Cuerpo { get; set; }
-        private Point Cabeza { get; set; }
+        public Point Cabeza { get; set; }
         private Direccion _direccion { get; set; }
         private Comida comida { get; set; }
         private bool _comiendo { get; set; } = false;
@@ -133,7 +133,11 @@ namespace Snake
         {
             if(Cabeza.X == comida.posicion.X && Cabeza.Y == comida.posicion.Y)
             {
-                comida.GenerarComida();
+                if (comida.GenerarComida(this))
+                {
+                    vivo = false;
+                    Environment.Exit(0);
+                }
                 _comiendo = true;
             }
         }

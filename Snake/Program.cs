@@ -25,7 +25,7 @@ void Iniciar()
    serpiente.IniciarCuerpo(2);
    
 
-    comida.GenerarComida();
+    comida.GenerarComida(serpiente);
 }
 
 void Game() 
