@@ -23,8 +23,8 @@ namespace Snake
         public List<Point> Cuerpo { get; set; }
         private Point Cabeza { get; set; }
         private Direccion _direccion { get; set; }
-
         private Comida comida { get; set; }
+        private bool _comiendo { get; set; } = false;
 
         public Serpiente(Point posicionInicial, ConsoleColor ColorCabeza, ConsoleColor ColorCuerpo, Ventana VentanaC, Comida comida)
         {
@@ -65,10 +65,14 @@ namespace Snake
             Console.Write("O");
             Cuerpo.Insert(0, posCabezaAnterior);
 
-            //Se borra el último segmento del cuerpo
-            Console.SetCursorPosition(Cuerpo[Cuerpo.Count-1].X, Cuerpo[Cuerpo.Count-1].Y);
-            Console.Write(" ");
-            Cuerpo.Remove(Cuerpo[Cuerpo.Count-1]);
+            //Se borra el último segmento del cuerpo, solo si no ha comido
+            if (!_comiendo)
+            {
+                Console.SetCursorPosition(Cuerpo[Cuerpo.Count - 1].X, Cuerpo[Cuerpo.Count - 1].Y);
+                Console.Write(" ");
+                Cuerpo.Remove(Cuerpo[Cuerpo.Count - 1]);
+            }
+            _comiendo = false;
         }
         public void MoverCabeza()
         {
@@ -130,6 +134,7 @@ namespace Snake
             if(Cabeza.X == comida.posicion.X && Cabeza.Y == comida.posicion.Y)
             {
                 comida.GenerarComida();
+                _comiendo = true;
             }
         }
 
