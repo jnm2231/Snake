@@ -9,11 +9,11 @@ namespace Snake
 {
     internal class Ventana
     {
-        public string Titulo { get; set; }
-        public int Ancho { get; set; }
-        public int Alto { get; set; }
-        public ConsoleColor ColorFondo { get; set; }
-        public ConsoleColor ColorLetra { get; set; }
+        private string Titulo { get; set; }
+        private int Ancho { get; set; }
+        private int Alto { get; set; }
+        private ConsoleColor ColorFondo { get; set; }
+        private ConsoleColor ColorLetra { get; set; }
         public Point LimiteSuperior { get; set; }
         public Point LimiteInferior { get; set; }
 
@@ -45,16 +45,20 @@ namespace Snake
             {
                 Console.SetCursorPosition(i, LimiteSuperior.Y);
                 Console.Write("█");
+                Thread.Sleep(1);
                 Console.SetCursorPosition(i, LimiteInferior.Y);
                 Console.Write("█");
+                Thread.Sleep(1);
             }
 
             for (int i=LimiteSuperior.Y; i<LimiteInferior.Y; i++) 
             {
                 Console.SetCursorPosition(LimiteSuperior.X, i);
                 Console.Write("█");
+                Thread.Sleep(1);
                 Console.SetCursorPosition(LimiteInferior.X, i);
                 Console.Write("█");
+                Thread.Sleep(1);
             }
             Console.SetCursorPosition(LimiteSuperior.X, LimiteSuperior.Y);
             Console.Write("█");
