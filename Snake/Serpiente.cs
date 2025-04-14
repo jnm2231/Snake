@@ -30,12 +30,41 @@ namespace Snake
             this.ColorCuerpo = ColorCuerpo;
             this.VentanaC = VentanaC;
             Cabeza = posicionInicial;
+            Cuerpo = new List<Point>();
+        }
+
+        public void IniciarCuerpo(int partes)
+        {
+            int x = Cabeza.X - 1;
+            for(int i=0; i<partes; i++)
+            {
+                Console.SetCursorPosition(x, Cabeza.Y);
+                Console.WriteLine("O");
+                Cuerpo.Add(new Point(x, Cabeza.Y));
+                x--;
+            }
         }
 
         public void Mover() 
         {
             Teclado();
+            Point posCabezaAnterior = Cabeza;
             MoverCabeza();
+            MoverCuerpo(posCabezaAnterior);
+        }
+
+        public void MoverCuerpo(Point posCabezaAnterior) 
+        {
+            //Se escribe el cuerpo en la posición anterior de la cabeza
+            Console.ForegroundColor = ColorCuerpo;
+            Console.SetCursorPosition(posCabezaAnterior.X, posCabezaAnterior.Y);
+            Console.WriteLine("O");
+            Cuerpo.Insert(0, posCabezaAnterior);
+
+            //Se borra el último segmento del cuerpo
+            Console.SetCursorPosition(Cuerpo[Cuerpo.Count-1].X, Cuerpo[Cuerpo.Count-1].Y);
+            Console.WriteLine(" ");
+            Cuerpo.Remove(Cuerpo[Cuerpo.Count-1]);
         }
         public void MoverCabeza()
         {
@@ -66,21 +95,14 @@ namespace Snake
             if (Console.KeyAvailable) 
             {
                 ConsoleKeyInfo tecla = Console.ReadKey(true);
-                switch (tecla.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        _direccion = Direccion.Arriba;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        _direccion = Direccion.Abajo;
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        _direccion = Direccion.Izquierda;
-                        break;
-                    case ConsoleKey.RightArrow:
-                        _direccion = Direccion.Derecha;
-                        break;
-                }
+                if(tecla.Key == ConsoleKey.UpArrow && _direccion != Direccion.Abajo)
+                    _direccion = Direccion.Arriba;
+                if (tecla.Key == ConsoleKey.DownArrow && _direccion != Direccion.Arriba)
+                    _direccion = Direccion.Abajo;
+                if (tecla.Key == ConsoleKey.LeftArrow && _direccion != Direccion.Derecha)
+                    _direccion = Direccion.Izquierda;
+                if (tecla.Key == ConsoleKey.RightArrow && _direccion != Direccion.Izquierda)
+                    _direccion = Direccion.Derecha;
             }
         }
     }
